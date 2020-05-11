@@ -1,13 +1,16 @@
-# Javascript工具
+# Javascript 工具
 
 TypeScript + test
 
-## DeepClone分支
+## DeepClone 分支
+
 [深克隆](https://github.com/CodeYHJ/JavaScript/tree/deepClone)
 
-## EventHub分支
+## EventHub 分支
+
 [订阅发布](https://github.com/CodeYHJ/JavaScript/tree/EventHub)
 
-## Promise分支
+## Promise 分支
+
 初步实现（测试中）
 看分支

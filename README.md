@@ -10,6 +10,10 @@ TypeScript + test
 
 [订阅发布](https://github.com/CodeYHJ/JavaScript/tree/EventHub)
 
+## bind 分支
+
+[订阅发布](https://github.com/CodeYHJ/JavaScript/tree/bind)
+
 ## Promise 分支
 
 初步实现（测试中）

@@ -12,7 +12,7 @@ TypeScript + test
 
 ## bind 分支
 
-[订阅发布](https://github.com/CodeYHJ/JavaScript/tree/bind)
+[bind](https://github.com/CodeYHJ/JavaScript/tree/bind)
 
 ## Promise 分支
 

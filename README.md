@@ -16,5 +16,4 @@ TypeScript + test
 
 ## Promise 分支
 
-初步实现（测试中）
-看分支
+重现编写中...

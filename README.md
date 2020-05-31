@@ -4,10 +4,16 @@ TypeScript + test
 
 ## DeepClone
 
+DeepClone 目录
+
 ## EventHub
 
-## bind
+EventHub 目录
+
+## Bind
+
+Bind 目录
 
 ## Promise
 
-编写中...
+Promise 目录

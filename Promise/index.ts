@@ -13,26 +13,36 @@ class MyPromise {
   resolveFn(result: unknown) {
     if (this.stats !== "pedding") return;
     this.stats = "fulfilled";
-    setTimeout(() => {
+    $nextTick(() => {
       this.callBacks.forEach((handle) => {
         if (typeof handle[0] === "function") {
-          const x = handle[0].call(undefined, result);
+          let x;
+          try {
+            x = handle[0].call(undefined, result);
+          } catch (error) {
+            return handle[2].rejectFn(error);
+          }
           handle[2].resolveWith(x);
         }
       });
-    }, 0);
+    });
   }
   rejectFn(resaon: unknown) {
     if (this.stats !== "pedding") return;
     this.stats = "reject";
-    setTimeout(() => {
+    $nextTick(() => {
       this.callBacks.forEach((handle) => {
         if (typeof handle[1] === "function") {
-          const x = handle[1].call(undefined, resaon);
+          let x;
+          try {
+            x = handle[1].call(undefined, resaon);
+          } catch (error) {
+            return handle[2].rejectFn(error);
+          }
           handle[2].resolveWith(x);
         }
       });
-    }, 0);
+    });
   }
   constructor(fn: IFn) {
     if (typeof fn !== "function") {
@@ -94,4 +104,16 @@ class MyPromise {
     }
   };
 }
+const $nextTick = (fn: any) => {
+  if (process !== undefined && typeof process.nextTick === "function") {
+    return process.nextTick(fn);
+  } else {
+    let count = 1;
+    const observer = new MutationObserver(fn);
+    const textNode = document.createTextNode(String(count));
+    observer.observe(textNode, { characterData: true });
+    count = count + 1;
+    textNode.data = String(count);
+  }
+};
 export default MyPromise;

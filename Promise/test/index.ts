@@ -99,12 +99,10 @@ describe("promise测试", () => {
   });
   it("2.2.3", (done) => {
     let failFn = sinon.fake();
-    //   @ts-ignore
     const promise = new MyPromise((resolve, reject) => {
       assert.isFalse(failFn.called);
       reject(123);
       reject(234);
-
       setTimeout(() => {
         assert.isTrue(failFn.calledOnce);
         assert(failFn.calledWith(123));
@@ -165,7 +163,7 @@ describe("promise测试", () => {
       done();
     }, 0);
   });
-  it("2.2.6.2 ,promise被reject后，then可以被多次调用", (done) => {
+  it("2.2.6.2,promise被reject后，then可以被多次调用", (done) => {
     const promise = new MyPromise((resolve, reject) => {
       reject();
     });
@@ -201,7 +199,7 @@ describe("promise测试", () => {
       done();
     });
   });
-  it("2.2.7.2 如果 x 是一个promise", (done) => {
+  it("2.2.7.1.2 sucess返回值，如果 x 是一个promise", (done) => {
     const fn = sinon.fake();
     const promise = new MyPromise((resolve, reject) => {
       resolve();
@@ -216,6 +214,90 @@ describe("promise测试", () => {
     setTimeout(() => {
       assert.isTrue(fn.called);
       done();
-    }, 10);
+    }, 0);
+  });
+  it("2.2.7.1.2 sucess返回值，如果 x 是一个promise,并且失败", (done) => {
+    const fn = sinon.fake();
+    const promise = new MyPromise((resolve, reject) => {
+      resolve();
+    });
+    const promise2 = promise
+      .then(() => {
+        return new MyPromise((resolve, reject) => {
+          reject();
+        });
+      })
+      .then(null, fn);
+    setTimeout(() => {
+      assert.isTrue(fn.called);
+      done();
+    }, 0);
+  });
+
+  it("2.2.7.1.2 fail返回值，如果 x 是一个promise", (done) => {
+    const fn = sinon.fake();
+    const promise = new MyPromise((resolve, reject) => {
+      reject();
+    });
+    const promise2 = promise
+      .then(null, () => {
+        return new MyPromise((resolve) => {
+          resolve();
+        });
+      })
+      .then(fn);
+    setTimeout(() => {
+      assert.isTrue(fn.called);
+      done();
+    }, 0);
+  });
+  it("2.2.7.1.2 fail返回值，如果 x 是一个promise,并且失败", (done) => {
+    const fn = sinon.fake();
+    const promise = new MyPromise((resolve, reject) => {
+      reject();
+    });
+    const promise2 = promise
+      .then(null, () => {
+        return new MyPromise((resolve, reject) => {
+          reject();
+        });
+      })
+      .then(null, fn);
+    setTimeout(() => {
+      assert.isTrue(fn.called);
+      done();
+    }, 0);
+  });
+  it("2.2.7.2,sucess后报异常，promise1必须拒绝", (done) => {
+    const fn = sinon.fake();
+    const error = new Error("报异常");
+    const promise = new MyPromise((resolve) => {
+      resolve();
+    });
+    const promise1 = promise.then(() => {
+      throw error;
+    });
+    promise1.then(null, fn);
+    setTimeout(() => {
+      assert(fn.called);
+      assert(fn.calledWith(error));
+      done();
+    });
+  });
+  it("2.2.7.2,fail后报异常，promise1必须拒绝", (done) => {
+    const fn = sinon.fake();
+    const error = new Error("报异常");
+    const promise = new MyPromise((resolve, reject) => {
+      reject();
+    });
+    const promise1 = promise.then(null, () => {
+      throw error;
+    });
+    promise1.then(null, fn);
+    setTimeout(() => {
+      assert(fn.called);
+      assert(fn.calledWith(error));
+      done();
+    });
   });
 });

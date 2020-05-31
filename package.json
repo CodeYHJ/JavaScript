@@ -6,6 +6,15 @@
   "repository": "git@github.com:CodeYHJ/JavaScript.git",
   "author": "codeyhj <colgateyhj@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "commit": "git add . && commit && git push",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
   "devDependencies": {
     "@types/chai": "^4.2.11",
     "@types/mocha": "^7.0.2",

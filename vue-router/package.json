@@ -1,0 +1,10 @@
+{
+  "name": "vue-router",
+  "version": "1.0.0",
+  "description": "vue-router轮子",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "vue": "^2.6.11"
+  }
+}

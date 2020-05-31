@@ -1,7 +1,7 @@
 {
-  "name": "javascript",
+  "name": "deepclone",
   "version": "1.0.0",
-  "description": "工具函数",
+  "description": "DeepClone轮子",
   "main": "index.js",
   "repository": "git@github.com:CodeYHJ/JavaScript.git",
   "author": "codeyhj <colgateyhj@gmail.com>",

@@ -1,19 +1,13 @@
-# Javascript 工具
+# Javascript 轮子
 
 TypeScript + test
 
-## DeepClone 分支
+## DeepClone
 
-[深克隆](https://github.com/CodeYHJ/JavaScript/tree/deepClone)
+## EventHub
 
-## EventHub 分支
+## bind
 
-[订阅发布](https://github.com/CodeYHJ/JavaScript/tree/EventHub)
+## Promise
 
-## bind 分支
-
-[bind](https://github.com/CodeYHJ/JavaScript/tree/bind)
-
-## Promise 分支
-
-重现编写中...
+编写中...

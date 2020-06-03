@@ -8,6 +8,10 @@
 
   <body>
     <div id="app"></div>
+    <a href="./#a">a</a>
+    <a href="./#b">b</a>
+    <a href="./#c">c</a>
+
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
     <script src="./VueRouter.js"></script>
@@ -16,6 +20,7 @@
       // 1. 插件安装
       // 2. vue-router实例化
       // 3. vue-router实例挂载到vue
+
       const install = (Vue) => {
         // 在每个组件的指定生命周期内，处理你想处理的事情
         Vue.mixin({
@@ -35,26 +40,32 @@
             return this.$options.router;
           },
         });
-      };
-      const demo1 = Vue.component("demo1", { template: `<div>demo1</div>` });
-      const demo2 = Vue.component("demo1", { template: `<div>demo2</div>` });
-      const router = new VueRouter({ routers: [demo1, demo2] });
-      router.install = install;
-      Vue.use(router);
-
       //   路由容器组件注册
       Vue.component("router-view", {
         functional: true,
-        render(createElement, { parent }) {
+        render(createElement, {props, children,parent, data }) {
+          console.log(children,props, data, "222");
           const router = (parent.$router && parent.$router.routers) || [];
           const component = parent._route;
-          console.log(component,"666666");
+          console.log(component, "33333", parent);
+
           if (!component) {
             return createElement();
           }
-          return createElement(router[0]);
+          return createElement(component);
         },
       });
+
+
+      };
+      const demo1 = Vue.component("demo1", { template: `<div>demo1</div>` });
+      const demo2 = Vue.component("demo2", { template: `<div>demo2</div>` });
+      const demo3 = Vue.component("demo3", { template: `<div>demo3</div>` });
+
+      const router = new VueRouter({ routers: [demo1, demo2,demo3] });
+      router.install = install;
+      Vue.use(router);
+
 
       const app = new Vue({
         router,

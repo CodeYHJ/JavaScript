@@ -1,44 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="app"></div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
     <script src="./VueRouter.js"></script>
     <script>
-        // vue中使用vue-router分为三个步骤
-        // 1. 插件安装
-        // 2. vue-router实例化
-        // 3. vue-router实例挂载到vue
-        const install = (Vue) => {
-            // 在每个组件的指定生命周期内，处理你想处理的事情
-            Vue.mixin({
-                beforeCreate() {
-                },
-            });
-            //注册全局组件
-            // Vue.component();
-            Object.defineProperty(Vue.prototype, "$router", {
-                get() {
-                    return this.$options.router
-                }
-            })
-        };
-        const router = new VueRouter();
-        router.install = install;
-        Vue.use(router);
-        const app = new Vue({ router }).$mount("#app");
+      // vue中使用vue-router分为三个步骤
+      // 1. 插件安装
+      // 2. vue-router实例化
+      // 3. vue-router实例挂载到vue
+      const install = (Vue) => {
+        // 在每个组件的指定生命周期内，处理你想处理的事情
+        Vue.mixin({
+          beforeCreate() {
+            // 因为此defineReactive会进行依赖收集
+            this._route = this.$parent
+              ? this.$parent.$options.router
+              : this.$options.router;
+            this._route.init(this);
+            Vue.util.defineReactive(this, "_route", this._route.current);
+          },
+        });
+        //注册全局组件
+        // Vue.component();
+        Object.defineProperty(Vue.prototype, "$router", {
+          get() {
+            return this.$options.router;
+          },
+        });
+      };
+      const demo1 = Vue.component("demo1", { template: `<div>demo1</div>` });
+      const demo2 = Vue.component("demo1", { template: `<div>demo2</div>` });
+      const router = new VueRouter({ routers: [demo1, demo2] });
+      router.install = install;
+      Vue.use(router);
 
-        // 通过Object.defineProperty劫持Vue的作用域链，可以在每个组件里获取router实例
-        console.log(app.$router, "1111");
+      //   路由容器组件注册
+      Vue.component("router-view", {
+        functional: true,
+        render(createElement, { parent }) {
+          const router = (parent.$router && parent.$router.routers) || [];
+          const component = parent._route;
+          console.log(component,"666666");
+          if (!component) {
+            return createElement();
+          }
+          return createElement(router[0]);
+        },
+      });
 
+      const app = new Vue({
+        router,
+        template: `<div><router-view/></div>`,
+      }).$mount("#app");
+
+      // 通过Object.defineProperty劫持Vue的作用域链，可以在每个组件里获取router实例
+      //   console.log(app.$router, "1111");
     </script>
-</body>
-
+  </body>
 </html>

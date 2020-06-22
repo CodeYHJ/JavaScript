@@ -11,69 +11,27 @@
     <a href="./#a">a</a>
     <a href="./#b">b</a>
     <a href="./#c">c</a>
-
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
     <script src="./VueRouter.js"></script>
+    <script src="./install.js"></script>
+    <script src="./View.js"></script>
     <script>
       // vue中使用vue-router分为三个步骤
       // 1. 插件安装
       // 2. vue-router实例化
       // 3. vue-router实例挂载到vue
-
-      const install = (Vue) => {
-        // 在每个组件的指定生命周期内，处理你想处理的事情
-        Vue.mixin({
-          beforeCreate() {
-            // 因为此defineReactive会进行依赖收集
-            this._route = this.$parent
-              ? this.$parent.$options.router
-              : this.$options.router;
-            this._route.init(this);
-            Vue.util.defineReactive(this, "_route", this._route.current);
-          },
-        });
-        //注册全局组件
-        // Vue.component();
-        Object.defineProperty(Vue.prototype, "$router", {
-          get() {
-            return this.$options.router;
-          },
-        });
-      //   路由容器组件注册
-      Vue.component("router-view", {
-        functional: true,
-        render(createElement, {props, children,parent, data }) {
-          console.log(children,props, data, "222");
-          const router = (parent.$router && parent.$router.routers) || [];
-          const component = parent._route;
-          console.log(component, "33333", parent);
-
-          if (!component) {
-            return createElement();
-          }
-          return createElement(component);
-        },
-      });
-
-
-      };
       const demo1 = Vue.component("demo1", { template: `<div>demo1</div>` });
       const demo2 = Vue.component("demo2", { template: `<div>demo2</div>` });
       const demo3 = Vue.component("demo3", { template: `<div>demo3</div>` });
-
       const router = new VueRouter({ routers: [demo1, demo2,demo3] });
       router.install = install;
       Vue.use(router);
-
-
+      regView(Vue)
       const app = new Vue({
         router,
         template: `<div><router-view/></div>`,
       }).$mount("#app");
 
-      // 通过Object.defineProperty劫持Vue的作用域链，可以在每个组件里获取router实例
-      //   console.log(app.$router, "1111");
     </script>
   </body>
 </html>

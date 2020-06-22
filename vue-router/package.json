@@ -4,7 +4,10 @@
   "description": "vue-router轮子",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "dev":"./node_modules/.bin/browser-sync --server --start ."
+  },
   "devDependencies": {
-    "vue": "^2.6.11"
+    "browser-sync": "^2.26.7"
   }
 }

@@ -14,16 +14,11 @@ class VueRouter {
         const t = target[1]
         if(t==='a'){
           this.update(this.routers[0])
-          // this.app._route = this.routers[0]
         }else if(t==='b'){
           this.update(this.routers[1])
-
-          // this.app._route = this.routers[1]
         }
         else if(t==='c'){
           this.update(this.routers[2])
-
-          // this.app._route = this.routers[2]
         }
       }
     });

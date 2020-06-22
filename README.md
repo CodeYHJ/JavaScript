@@ -3,4 +3,6 @@
 
 ## Vue-Router
 
-需要在**Vue-Router**目录内运行`yarn install` 安装依赖。然后运行。
+进入**Vue-Router**目录内运行 `yarn install` 安装依赖。然后运行 `yarn dev`。
+
+[文章](https://www.yuque.com/u120129/aygter/ky7qki)

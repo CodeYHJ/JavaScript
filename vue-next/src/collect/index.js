@@ -1,4 +1,4 @@
-const effectWeaksMap = new WeakMap();
+export const effectWeaksMap = new WeakMap();
 //是否收集依赖
 let isTrack = false;
 // 当前执行effect的缓存

@@ -1,4 +1,4 @@
-import {track,trigger}from '../collect/index.js'
+import {track,trigger,effectWeaksMap}from '../collect/index.js'
 export const baseHandle = {
   get(target, propertyKey, value) {
     // 依赖收集
@@ -8,6 +8,8 @@ export const baseHandle = {
   },
   set(target, propertyKey, value) {
     // 依赖触发
+    console.log(effectWeaksMap.get(target),'22222')
+    
     trigger(target,propertyKey)
     //如果不返回Boolean
     //Uncaught TypeError: 'set' on proxy: trap returned falsish for property 'a'

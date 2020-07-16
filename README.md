@@ -4,20 +4,30 @@ TypeScript + test
 
 ## DeepClone
 
-DeepClone 目录
+- [x] DeepClone 
 
 ## EventHub
 
-EventHub 目录
+- [x] EventHub 
 
 ## Bind
 
-Bind 目录
+- [x] Bind 
 
-## Promise
+# Vue全家桶轮子
 
-Promise 目录
+## [Vue-Router 轮子](https://github.com/CodeYHJ/JavaScript/tree/vue)
 
-# Vue全家桶轮子帮助理解Vue全家桶原理
+- [x] Router-View组件
 
-## [Vue-router](https://github.com/CodeYHJ/JavaScript/tree/vue)
+## [Vue 3.0 reactivity 迷你轮子](https://github.com/CodeYHJ/JavaScript/tree/vue)
+
+- [x] reactive
+
+- [x] ref
+
+- [x] effect
+
+- [ ] computer
+
+

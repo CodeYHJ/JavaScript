@@ -12,16 +12,15 @@
     </div>
     <script type="module">
       import { reactive } from "./src/reactivity/index.js";
-      import { effect } from "./src/collect/index.js";
+      import { effect } from "./src/reactivity/collect/index.js";
       const number = reactive({ a: 1 });
       effect(() => {
-        // console.log("effect测试");
+        console.log("effect测试");
         document.querySelector("#text").innerHTML = `${number.a}`;
       });
       function add() {
-        number.a+= 1;
-        console.log(number,'333')
-
+        number.a += 1;
+        console.log(number, "333");
       }
       document.querySelector("#add").addEventListener("click", add);
     </script>

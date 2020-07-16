@@ -29,7 +29,6 @@ export const trigger = (target, key,value) => {
   let dep = effectDepsMap.get(key);
   dep.forEach((el) => {
     el();
-
   });
 };
 

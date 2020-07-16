@@ -12,6 +12,11 @@
 
 ## Vue 3.0
 
-## reactive
+## reactivity
+
+[x] reactive 
+[x] ref
+[x] effect
+[ ] computer
 
 进入**Vue-next**目录内运行 `yarn install` 安装依赖。然后运行 `yarn dev`。

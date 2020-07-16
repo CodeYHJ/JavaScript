@@ -11,16 +11,21 @@
       <button id="add">add</button>
     </div>
     <script type="module">
-      import { reactive } from "./src/reactivity/index.js";
-      import { effect } from "./src/reactivity/collect/index.js";
-      const number = reactive({ a: 1 });
+      // import { reactive } from "./src/reactivity/index.js"
+      // import { effect } from "./src/reactivity/collect/index.js"
+      import { effect, reactive, ref } from "./src/reactivity/demo.js";
+
+      // const number = reactive({ a: 1 });
+      const number = ref(1);
+      console.log(number, "222");
+
       effect(() => {
         console.log("effect测试");
-        document.querySelector("#text").innerHTML = `${number.a}`;
+        // document.querySelector("#text").innerHTML = `${number.a}`
+        document.querySelector("#text").innerHTML = `${number.value}`;
       });
       function add() {
-        number.a += 1;
-        console.log(number, "333");
+        number.value += 1;
       }
       document.querySelector("#add").addEventListener("click", add);
     </script>

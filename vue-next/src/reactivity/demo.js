@@ -14,12 +14,12 @@ const track = (target, key) => {
     effectDepsMap = new Map();
     effectWeaksMap.set(target, effectDepsMap);
   }
-
   let dep = effectDepsMap.get(key);
   if (!dep) {
     dep = new Set();
     effectDepsMap.set(key, dep);
   }
+
   if (!dep.has(currentEffect)) {
     dep.add(currentEffect);
   }
@@ -29,6 +29,7 @@ const trigger = (target, key, value) => {
   let effectDepsMap = effectWeaksMap.get(target);
   if (!effectDepsMap) return;
   let dep = effectDepsMap.get(key);
+
   dep.forEach((el) => {
     el();
   });
@@ -60,10 +61,25 @@ const baseHandle = {
   },
 };
 
+const createEffect = (fn, type) => {
+  const effect = function effectRun() {
+    openTrack();
+    try {
+      currentEffect = effect;
+      return fn();
+    } finally {
+      closeTrack();
+    }
+  };
+  effect.type = type;
+  return effect;
+};
+
 export function reactive(target) {
   if (!isObject(target)) throw new Error("reactive 只接受Object类型");
   return new Proxy(target, baseHandle);
 }
+
 export function ref(val) {
   let _value = val;
   const _valueRef = {
@@ -78,15 +94,12 @@ export function ref(val) {
   };
   return _valueRef;
 }
-export const effect = (fn) => {
-  openTrack();
-  try {
-    currentEffect = fn;
-    fn();
-  } finally {
-    closeTrack();
-  }
+
+export const effect = (fn, options) => {
+  const effectFn = createEffect(fn, 1);
+  return effectFn();
 };
-export const computer=(fn)=>{
-    
-}
+export const computer = (fn) => {
+  const effectFn = createEffect(fn, 2);
+  return effectFn();
+};
